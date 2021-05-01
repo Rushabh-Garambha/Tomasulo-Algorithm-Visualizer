@@ -20,7 +20,7 @@ class ROBEntry:
     def update(self, op, inst_id, dest, busy, ready, value=None):
         self.op = op
         self.inst_id = inst_id
-        self.dest = dest
+        self.dest = destgit
         self.value = value
         self.busy = busy
         self.ready = ready
@@ -44,6 +44,8 @@ class RSEntry:
         self.counter = self.cycle
 
     def execute(self):
+        if(self.op.startswith('B')):
+            print(self.vj)
         if self.busy:
             # TODO: BRANCH PREDICTION
             if self.op == 'LD':
@@ -60,14 +62,18 @@ class RSEntry:
                         self.counter = self.cycle
                         if self.op == 'ADD':
                             return [self.dest, self.vj + self.vk]
-                        if self.op == 'SUB':
+                        elif self.op == 'SUB':
                             return [self.dest, self.vj - self.vk]
-                        if self.op == 'MUL':
+                        elif self.op == 'MUL':
                             return [self.dest, self.vj * self.vk]
-                        if self.op == 'DIV':
+                        elif self.op == 'DIV':
                             return [self.dest, self.vj / self.vk]
-                        if self.op == 'BGE':
+                        elif self.op == 'BGE':
                             return [self.dest, 1 if self.vj >= self.vk else 0]
+                        elif self.op == 'BNEZ':
+                            return [self.dest, 1 if self.vj else 0]
+                        elif self.op == 'BEQZ':
+                            return [self.dest, 0 if self.vj else 1]
                     else:
                         self.counter -= 1
                         return

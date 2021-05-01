@@ -1,11 +1,13 @@
 from Component import *
 import Config as cfg
 
+
 class Architecture:
     def __init__(self):
         self.PC = 16
         self.cycle = 0
         self.done = False
+
         # Initialize Parameters
         self.total_regs = cfg.Config.num_of_registers
         self.len_inst_window = cfg.Config.inst_win_size
@@ -16,7 +18,7 @@ class Architecture:
         # Load Program to memory into dictionary which has keys are the address
         self.program = {}
         for inst in cfg.instructions:
-            self.program[inst["address"]] = Instruction(inst["op"],inst["dest"],inst["s1"],inst["s2"])
+            self.program[inst["address"]] = Instruction(inst["op"], inst["dest"], inst["s1"], inst["s2"])
 
         # Reservation Stations list
         self.RS = ReservationStation()
@@ -31,7 +33,7 @@ class Architecture:
         self.CDB = []
 
         # Report File
-        self.report = open('Report.txt', 'w')
+        self.report = open('Output_Report.txt', 'w')
 
     def start(self):
         while not self.done:
@@ -77,21 +79,10 @@ class Architecture:
         if not self.ROB.is_full():
             next_inst = self.IQ.get()
 
-            if next_inst.op == 'LD':
-                if self.RS.is_available(next_inst.op):
-                    inst_id, inst = self.IQ.dequeue()
-                else:
-                    return
-            elif next_inst.op == 'BGE':
-                if self.RS.is_available(next_inst.op):
-                    inst_id, inst = self.IQ.dequeue()
-                else:
-                    return
+            if self.RS.is_available(next_inst.op):
+                inst_id, inst = self.IQ.dequeue()
             else:
-                if self.RS.is_available(next_inst.op):
-                    inst_id, inst = self.IQ.dequeue()
-                else:
-                    return
+                return
 
             rob_id = self.ROB.list[self.ROB.tail].name
 
@@ -120,7 +111,7 @@ class Architecture:
                 else:
                     rs.vj = int(inst.s1)
                     rs.qj = ''
-            elif inst.op == 'BGE':
+            elif inst.op in ['BGE','BNEZ','BEQZ']:
                 if Instruction.is_operand_reg(inst.d):
                     if not self.RF[inst.d].busy:
                         rob_d = self.ROB.getby_reg(inst.d)
@@ -223,7 +214,7 @@ class Architecture:
                     rs.vk = int(inst.s2)
                     rs.qk = ''
             self.ROB.add(inst_id, inst)
-            # if branch: dont add to RF
+            # if branch: don't add to RF
             if not inst.op.startswith('B'):
                 self.RF[inst.d].reorder = rob_id
 
@@ -264,11 +255,11 @@ class Architecture:
             self.IQ.enqueue(inst_copy)
             if inst_copy.op.startswith('B'):
                 self.last_branch_PC = self.PC + 4
-                self.PC = int(inst_copy.s2)
+                self.PC = int(inst_copy.s2) if inst_copy.op not in ["BNEZ", "BEQZ"] else int(inst_copy.s1)
             else:
                 self.PC += 4
         except:
-            if self.ROB.is_empty():
+            if self.ROB.is_empty() and self.IQ.empty():
                 self.done = True
 
     def flush(self):
@@ -278,7 +269,7 @@ class Architecture:
                 self.RS.flush(rob.inst_id)
                 if self.RF[rob.dest].reorder == rob.name:
                     self.RF[rob.dest].reorder = ''
-                    # eğer bu register yenilenmiş robda varsa o rob id ile güncelle
+                    # if this register exists in the updated rob, update it with that rob id
                     reg_rob = self.ROB.getby_reg(rob.dest)
                     if reg_rob is not None:
                         self.RF[rob.dest].reorder = reg_rob.name

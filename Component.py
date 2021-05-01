@@ -1,4 +1,4 @@
-from Entry import *
+from Elements import *
 from Config import Config
 
 class RegisterFile:
