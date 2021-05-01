@@ -1,4 +1,4 @@
-from Component import *
+from Components import *
 import Config as cfg
 
 

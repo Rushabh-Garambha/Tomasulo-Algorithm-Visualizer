@@ -106,7 +106,7 @@ class ReOrderBuffer:
         self.head = 0
         self.tail = 0
         self.list = []
-        self.size = 5
+        self.size = Config.rob_size
         for i in range(self.size):
             self.list.append(ROBEntry('ROB' + str(i)))
 

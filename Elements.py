@@ -44,8 +44,6 @@ class RSEntry:
         self.counter = self.cycle
 
     def execute(self):
-        if(self.op.startswith('B')):
-            print(self.vj)
         if self.busy:
             # TODO: BRANCH PREDICTION
             if self.op == 'LD':

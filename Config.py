@@ -1,21 +1,29 @@
 class Config:
     num_of_registers = 4
-    inst_win_size = 4
+    inst_win_size = 5
+    rob_size = 7
     functional_units = [{"id": 0,
                          "instructions": ["ADD", "SUB"],
                          "cycles": 1},
                         {"id": 1,
-                         "instructions": ["MUL"],
-                         "cycles": 4},
+                         "instructions": ["ADD", "SUB"],
+                         "cycles": 1},
                         {"id": 2,
                          "instructions": ["MUL"],
                          "cycles": 4},
                         {"id": 3,
-                         "instructions": ["DIV"],
+                         "instructions": ["MUL"],
                          "cycles": 4},
                         {"id": 4,
+                         "instructions": ["DIV"],
+                         "cycles": 4},
+                        {"id": 5,
                          "instructions": ["LD", "BGE", "BNEZ", "BEQZ"],
-                         "cycles": 1}]
+                         "cycles": 1},
+                        {"id": 6,
+                         "instructions": ["LD", "BGE", "BNEZ", "BEQZ"],
+                         "cycles": 1},
+                        ]
 
 
 instructions = [{"address": 0,
