@@ -20,7 +20,7 @@ class ROBEntry:
     def update(self, op, inst_id, dest, busy, ready, value=None):
         self.op = op
         self.inst_id = inst_id
-        self.dest = destgit
+        self.dest = dest
         self.value = value
         self.busy = busy
         self.ready = ready
