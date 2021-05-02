@@ -9,26 +9,30 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from Config import get_program, instructions
 
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+
+    def setupUi(self, MainWindow, results):
+        self.result = results
+        self.cycle = 0
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1080, 900)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(0, 800, 540, 50))
+        self.btn_prev = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_prev.setGeometry(QtCore.QRect(0, 780, 540, 50))
         font = QtGui.QFont()
         font.setPointSize(12)
-        self.pushButton.setFont(font)
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(540, 800, 540, 50))
+        self.btn_prev.setFont(font)
+        self.btn_prev.setObjectName("btn_prev")
+        self.btn_next = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_next.setGeometry(QtCore.QRect(540, 780, 540, 50))
         font = QtGui.QFont()
         font.setPointSize(12)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setObjectName("pushButton_2")
+        self.btn_next.setFont(font)
+        self.btn_next.setObjectName("btn_next")
         self.table_iw = QtWidgets.QTableWidget(self.centralwidget)
         self.table_iw.setGeometry(QtCore.QRect(320, 220, 150, 150))
         self.table_iw.setContextMenuPolicy(QtCore.Qt.NoContextMenu)
@@ -66,6 +70,21 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         item.setFont(font)
         self.table_iw.setItem(0, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_iw.setItem(0, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_iw.setItem(1, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_iw.setItem(2, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_iw.setItem(3, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_iw.setItem(4, 0, item)
         self.table_iw.horizontalHeader().setVisible(False)
         self.table_iw.horizontalHeader().setDefaultSectionSize(150)
         self.table_iw.verticalHeader().setVisible(False)
@@ -116,6 +135,21 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignCenter)
         self.table_rob.setItem(4, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_rob.setItem(0, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_rob.setItem(1, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_rob.setItem(2, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_rob.setItem(3, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_rob.setItem(4, 1, item)
         self.table_rob.horizontalHeader().setVisible(False)
         self.table_rob.horizontalHeader().setDefaultSectionSize(150)
         self.table_rob.verticalHeader().setVisible(False)
@@ -160,6 +194,18 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignCenter)
         self.table_reg.setItem(3, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_reg.setItem(0, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_reg.setItem(1, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_reg.setItem(2, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_reg.setItem(3, 1, item)
         self.table_reg.horizontalHeader().setVisible(False)
         self.table_reg.horizontalHeader().setDefaultSectionSize(150)
         self.table_reg.verticalHeader().setVisible(False)
@@ -188,6 +234,18 @@ class Ui_MainWindow(object):
         self.table_ld.setHorizontalHeaderItem(0, item)
         item = QtWidgets.QTableWidgetItem()
         self.table_ld.setHorizontalHeaderItem(1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_ld.setItem(0, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_ld.setItem(1, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_ld.setItem(0, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_ld.setItem(1, 1, item)
         self.table_ld.horizontalHeader().setVisible(False)
         self.table_ld.horizontalHeader().setDefaultSectionSize(75)
         self.table_ld.verticalHeader().setVisible(False)
@@ -255,6 +313,30 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         item.setFont(font)
         self.table_mul.setItem(0, 3, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_mul.setItem(1, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_mul.setItem(2, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_mul.setItem(1, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_mul.setItem(2, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_mul.setItem(1, 2, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_mul.setItem(2, 2, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_mul.setItem(1, 3, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_mul.setItem(2, 3, item)
         self.table_mul.horizontalHeader().setVisible(False)
         self.table_mul.horizontalHeader().setDefaultSectionSize(50)
         self.table_mul.verticalHeader().setVisible(False)
@@ -518,6 +600,30 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         item.setFont(font)
         self.table_add.setItem(0, 3, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_add.setItem(1, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_add.setItem(2, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_add.setItem(1, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_add.setItem(2, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_add.setItem(1, 2, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_add.setItem(2, 2, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_add.setItem(1, 3, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_add.setItem(2, 3, item)
         self.table_add.horizontalHeader().setVisible(False)
         self.table_add.horizontalHeader().setDefaultSectionSize(50)
         self.table_add.verticalHeader().setVisible(False)
@@ -583,6 +689,18 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         item.setFont(font)
         self.table_div.setItem(0, 3, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_div.setItem(1, 0, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_div.setItem(1, 1, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_div.setItem(1, 2, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        self.table_div.setItem(1, 3, item)
         self.table_div.horizontalHeader().setVisible(False)
         self.table_div.horizontalHeader().setDefaultSectionSize(50)
         self.table_div.verticalHeader().setVisible(False)
@@ -630,19 +748,19 @@ class Ui_MainWindow(object):
         self.tv_program.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.tv_program.setReadOnly(True)
         self.tv_program.setObjectName("tv_program")
-        self.tv_add_3 = QtWidgets.QTextEdit(self.centralwidget)
-        self.tv_add_3.setGeometry(QtCore.QRect(30, 100, 241, 261))
+        self.tv_prog_ins = QtWidgets.QTextEdit(self.centralwidget)
+        self.tv_prog_ins.setGeometry(QtCore.QRect(30, 100, 241, 261))
         font = QtGui.QFont()
         font.setPointSize(8)
         font.setStrikeOut(False)
         font.setKerning(True)
-        self.tv_add_3.setFont(font)
-        self.tv_add_3.setAcceptDrops(True)
-        self.tv_add_3.setInputMethodHints(QtCore.Qt.ImhNone)
-        self.tv_add_3.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.tv_add_3.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.tv_add_3.setReadOnly(True)
-        self.tv_add_3.setObjectName("tv_add_3")
+        self.tv_prog_ins.setFont(font)
+        self.tv_prog_ins.setAcceptDrops(True)
+        self.tv_prog_ins.setInputMethodHints(QtCore.Qt.ImhNone)
+        self.tv_prog_ins.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.tv_prog_ins.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.tv_prog_ins.setReadOnly(True)
+        self.tv_prog_ins.setObjectName("tv_prog_ins")
         self.tv_cycle = QtWidgets.QTextEdit(self.centralwidget)
         self.tv_cycle.setGeometry(QtCore.QRect(990, 20, 50, 50))
         font = QtGui.QFont()
@@ -668,11 +786,119 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def updateTv(self, view, string):
+        _translate = QtCore.QCoreApplication.translate
+        view.setHtml(_translate("MainWindow",
+                                "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                "p, li { white-space: pre-wrap; }\n"
+                                "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+                                "<p align=\"center\" style=\" vertical-align:middle; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:15pt; font-weight:300;\">" + string + "</span></p></body></html>"))
+
+    def updateViews(self):
+        _translate = QtCore.QCoreApplication.translate
+        i = self.cycle
+        # update cycle count
+        self.updateTv(self.tv_cycle, str(self.cycle))
+        # update instruction window
+        for row in range(5):
+            item = self.table_iw.item(row, 0)
+            item.setText(_translate("MainWindow", self.result[i]["IQ"][row]))
+        # update reorder buffer
+        item = self.table_rob.item(0, 1)
+        item.setText(_translate("MainWindow", self.result[i]["ROB4"]))
+        item = self.table_rob.item(1, 1)
+        item.setText(_translate("MainWindow", self.result[i]["ROB3"]))
+        item = self.table_rob.item(2, 1)
+        item.setText(_translate("MainWindow", self.result[i]["ROB2"]))
+        item = self.table_rob.item(3, 1)
+        item.setText(_translate("MainWindow", self.result[i]["ROB1"]))
+        item = self.table_rob.item(4, 1)
+        item.setText(_translate("MainWindow", self.result[i]["ROB0"]))
+        # update registers
+        item = self.table_reg.item(0, 1)
+        item.setText(_translate("MainWindow", self.result[i]["R0"]))
+        item = self.table_reg.item(1, 1)
+        item.setText(_translate("MainWindow", self.result[i]["R1"]))
+        item = self.table_reg.item(2, 1)
+        item.setText(_translate("MainWindow", self.result[i]["R2"]))
+        item = self.table_reg.item(3, 1)
+        item.setText(_translate("MainWindow", self.result[i]["R3"]))
+        # update load
+        item = self.table_ld.item(0, 0)
+        item.setText(_translate("MainWindow", self.result[i]["L0"]["dest"]))
+        item = self.table_ld.item(0, 1)
+        item.setText(_translate("MainWindow", self.result[i]["L0"]["j"]))
+        item = self.table_ld.item(1, 0)
+        item.setText(_translate("MainWindow", self.result[i]["L1"]["dest"]))
+        item = self.table_ld.item(1, 1)
+        item.setText(_translate("MainWindow", self.result[i]["L1"]["j"]))
+        # update add/sub
+        item = self.table_add.item(1, 0)
+        item.setText(_translate("MainWindow", self.result[i]["A0"]["op"]))
+        item = self.table_add.item(1, 1)
+        item.setText(_translate("MainWindow", self.result[i]["A0"]["j"]))
+        item = self.table_add.item(1, 2)
+        item.setText(_translate("MainWindow", self.result[i]["A0"]["k"]))
+        item = self.table_add.item(1, 3)
+        item.setText(_translate("MainWindow", self.result[i]["A0"]["dest"]))
+        item = self.table_add.item(2, 0)
+        item.setText(_translate("MainWindow", self.result[i]["A1"]["op"]))
+        item = self.table_add.item(2, 1)
+        item.setText(_translate("MainWindow", self.result[i]["A1"]["j"]))
+        item = self.table_add.item(2, 2)
+        item.setText(_translate("MainWindow", self.result[i]["A1"]["k"]))
+        item = self.table_add.item(2, 3)
+        item.setText(_translate("MainWindow", self.result[i]["A1"]["dest"]))
+        # update mul
+        item = self.table_mul.item(1, 0)
+        item.setText(_translate("MainWindow", self.result[i]["M0"]["op"]))
+        item = self.table_mul.item(1, 1)
+        item.setText(_translate("MainWindow", self.result[i]["M0"]["j"]))
+        item = self.table_mul.item(1, 2)
+        item.setText(_translate("MainWindow", self.result[i]["M0"]["k"]))
+        item = self.table_mul.item(1, 3)
+        item.setText(_translate("MainWindow", self.result[i]["M0"]["dest"]))
+        item = self.table_mul.item(2, 0)
+        item.setText(_translate("MainWindow", self.result[i]["M1"]["op"]))
+        item = self.table_mul.item(2, 1)
+        item.setText(_translate("MainWindow", self.result[i]["M1"]["j"]))
+        item = self.table_mul.item(2, 2)
+        item.setText(_translate("MainWindow", self.result[i]["M1"]["k"]))
+        item = self.table_mul.item(2, 3)
+        item.setText(_translate("MainWindow", self.result[i]["M1"]["dest"]))
+        # update div
+        item = self.table_div.item(1, 0)
+        item.setText(_translate("MainWindow", self.result[i]["D0"]["op"]))
+        item = self.table_div.item(1, 1)
+        item.setText(_translate("MainWindow", self.result[i]["D0"]["j"]))
+        item = self.table_div.item(1, 2)
+        item.setText(_translate("MainWindow", self.result[i]["D0"]["k"]))
+        item = self.table_div.item(1, 3)
+        item.setText(_translate("MainWindow", self.result[i]["D0"]["dest"]))
+        # update cdb
+        cdb = self.result[i]['cdb'] if 'cdb' in self.result[i] else ''
+        self.updateTv(self.table_cdb, cdb)
+
+    def prevPressed(self):
+        if self.cycle > 0:
+            self.cycle -= 1
+            self.updateViews()
+
+    def nextPressed(self):
+        if self.cycle < len(self.result) - 1:
+            self.cycle += 1
+            self.updateViews()
+
+    def resizeRow(self,view):
+        for row in range(view.model().rowCount()):
+            view.setRowHeight(row, 30)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Tomasulo Visualization"))
-        self.pushButton.setText(_translate("MainWindow", "Previous Cycle"))
-        self.pushButton_2.setText(_translate("MainWindow", "Next Cycle"))
+        self.btn_prev.setText(_translate("MainWindow", "Previous Cycle"))
+        self.btn_next.setText(_translate("MainWindow", "Next Cycle"))
         item = self.table_iw.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "r0"))
         item = self.table_iw.verticalHeaderItem(1)
@@ -771,41 +997,48 @@ class Ui_MainWindow(object):
         item = self.table_mul.item(0, 3)
         item.setText(_translate("MainWindow", "Dest"))
         self.table_mul.setSortingEnabled(__sortingEnabled)
-        self.tv_iw.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Instruction Window</span></p></body></html>"))
-        self.tv_ld.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Load</span></p></body></html>"))
-        self.tv_add.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Add/Sub</span></p></body></html>"))
-        self.tv_mul.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Mul</span></p></body></html>"))
-        self.tv_div.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Div</span></p></body></html>"))
-        self.tv_reg.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Registers</span></p></body></html>"))
-        self.tv_rob.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Reorder Buffer</span></p></body></html>"))
+        self.tv_iw.setHtml(_translate("MainWindow",
+                                      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                      "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                      "p, li { white-space: pre-wrap; }\n"
+                                      "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+                                      "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Instruction Window</span></p></body></html>"))
+        self.tv_ld.setHtml(_translate("MainWindow",
+                                      "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                      "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                      "p, li { white-space: pre-wrap; }\n"
+                                      "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+                                      "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Load</span></p></body></html>"))
+        self.tv_add.setHtml(_translate("MainWindow",
+                                       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                       "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                       "p, li { white-space: pre-wrap; }\n"
+                                       "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Add/Sub</span></p></body></html>"))
+        self.tv_mul.setHtml(_translate("MainWindow",
+                                       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                       "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                       "p, li { white-space: pre-wrap; }\n"
+                                       "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Mul</span></p></body></html>"))
+        self.tv_div.setHtml(_translate("MainWindow",
+                                       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                       "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                       "p, li { white-space: pre-wrap; }\n"
+                                       "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Div</span></p></body></html>"))
+        self.tv_reg.setHtml(_translate("MainWindow",
+                                       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                       "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                       "p, li { white-space: pre-wrap; }\n"
+                                       "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Registers</span></p></body></html>"))
+        self.tv_rob.setHtml(_translate("MainWindow",
+                                       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                       "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                       "p, li { white-space: pre-wrap; }\n"
+                                       "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Reorder Buffer</span></p></body></html>"))
         item = self.table_add.verticalHeaderItem(0)
         item.setText(_translate("MainWindow", "title"))
         item = self.table_add.verticalHeaderItem(1)
@@ -854,38 +1087,45 @@ class Ui_MainWindow(object):
         item = self.table_div.item(0, 3)
         item.setText(_translate("MainWindow", "Dest"))
         self.table_div.setSortingEnabled(__sortingEnabled)
-        self.tv_cdb.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Common Data Bus</span></p></body></html>"))
-        self.table_cdb.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.tv_program.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Program</span></p></body></html>"))
-        self.tv_add_3.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
-        self.tv_cycle.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.tv_cdb.setHtml(_translate("MainWindow",
+                                       "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                       "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                       "p, li { white-space: pre-wrap; }\n"
+                                       "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+                                       "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Common Data Bus</span></p></body></html>"))
+        self.table_cdb.setHtml(_translate("MainWindow",
+                                          "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                          "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                          "p, li { white-space: pre-wrap; }\n"
+                                          "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+                                          "<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
+        self.tv_program.setHtml(_translate("MainWindow",
+                                           "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                           "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                           "p, li { white-space: pre-wrap; }\n"
+                                           "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
+                                           "<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt; font-weight:600;\">Program</span></p></body></html>"))
+        self.tv_prog_ins.setHtml(_translate("MainWindow",
+                                            "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+                                            "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+                                            "p, li { white-space: pre-wrap; }\n"
+                                            "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+                                            "<pre style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">" + get_program(
+                                                instructions) + "</pre></body></html>"))
 
+        self.resizeRow(self.table_iw)
+        self.resizeRow(self.table_reg)
+        self.resizeRow(self.table_rob)
+        self.resizeRow(self.table_div)
+        self.resizeRow(self.table_add)
+        self.resizeRow(self.table_mul)
+        self.resizeRow(self.table_ld)
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+        self.updateViews()
+
+        self.btn_prev.clicked.connect(lambda: self.prevPressed())
+        self.btn_next.clicked.connect(lambda: self.nextPressed())
+
+# if __name__ == "__main__":
+#     import sys
+#
