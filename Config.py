@@ -1,7 +1,7 @@
 class Config:
     num_of_registers = 4
     inst_win_size = 5
-    rob_size = 7
+    rob_size = 5
     functional_units = [{"id": 0,
                          "instructions": ["ADD", "SUB"],
                          "cycles": 1},
@@ -24,6 +24,7 @@ class Config:
                          "instructions": ["LD", "BGE", "BNEZ", "BEQZ"],
                          "cycles": 1},
                         ]
+    rs_id_mappings = ["A0","A1","M0","M1","D0","L0","L1"]
 
 
 instructions = [{"address": 0,

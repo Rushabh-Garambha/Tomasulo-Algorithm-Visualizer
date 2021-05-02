@@ -30,8 +30,6 @@ ROB1:
 ROB2: 
 ROB3: 
 ROB4: 
-ROB5: 
-ROB6: 
 
 Common Data Bus
 
@@ -66,8 +64,6 @@ ROB1:  - (T)
 ROB2: 
 ROB3: 
 ROB4: 
-ROB5: 
-ROB6: 
 
 Common Data Bus
 ['ROB0', 0]
@@ -102,8 +98,6 @@ ROB1: MUL R2
 ROB2:  - (T)
 ROB3: 
 ROB4: 
-ROB5: 
-ROB6: 
 
 Common Data Bus
 ['ROB0', 0]
@@ -138,8 +132,6 @@ ROB1: MUL R2
 ROB2: MUL R1
 ROB3:  - (T)
 ROB4: 
-ROB5: 
-ROB6: 
 
 Common Data Bus
 
@@ -174,8 +166,6 @@ ROB1: MUL R2 - (H)
 ROB2: MUL R1
 ROB3: SUB R3
 ROB4:  - (T)
-ROB5: 
-ROB6: 
 
 Common Data Bus
 
@@ -205,13 +195,11 @@ RS5:
 RS6:
 
 Reorder Buffer
-ROB0: 
+ROB0:  - (T)
 ROB1: MUL R2 - (H)
 ROB2: MUL R1
 ROB3: SUB R3
 ROB4: DIV R1
-ROB5:  - (T)
-ROB6: 
 
 Common Data Bus
 
@@ -241,13 +229,11 @@ RS5:
 RS6:
 
 Reorder Buffer
-ROB0: 
+ROB0:  - (T)
 ROB1: MUL R2 - (H)
 ROB2: MUL R1
 ROB3: SUB R3
 ROB4: DIV R1
-ROB5:  - (T)
-ROB6: 
 
 Common Data Bus
 
@@ -277,13 +263,11 @@ RS5:
 RS6:
 
 Reorder Buffer
-ROB0: 
+ROB0:  - (T)
 ROB1: MUL R2 - (H)
 ROB2: MUL R1
 ROB3: SUB R3
 ROB4: DIV R1
-ROB5:  - (T)
-ROB6: 
 
 Common Data Bus
 ['ROB1', 0]
@@ -313,13 +297,11 @@ RS5:
 RS6:
 
 Reorder Buffer
-ROB0: 
+ROB0:  - (T)
 ROB1: 
 ROB2: MUL R1 - (H)
 ROB3: SUB R3
 ROB4: DIV R1
-ROB5:  - (T)
-ROB6: 
 
 Common Data Bus
 ['ROB2', 0]
@@ -349,13 +331,11 @@ RS5:
 RS6:
 
 Reorder Buffer
-ROB0: 
+ROB0:  - (T)
 ROB1: 
 ROB2: 
 ROB3: SUB R3 - (H)
 ROB4: DIV R1
-ROB5:  - (T)
-ROB6: 
 
 Common Data Bus
 ['ROB4', 0.0625]
@@ -371,7 +351,7 @@ BEQZ R1, 4
 
 Registers
 R0: 0 
-R1: 0 ROB5
+R1: 0 ROB0
 R2: 0 
 R3: 	 ROB3
 
@@ -380,18 +360,16 @@ RS0: SUB 0 0 ROB3
 RS1:
 RS2:
 RS3:
-RS4: DIV 1 16 ROB5
+RS4: DIV 1 16 ROB0
 RS5:
 RS6:
 
 Reorder Buffer
-ROB0: 
-ROB1: 
+ROB0: DIV R1
+ROB1:  - (T)
 ROB2: 
 ROB3: SUB R3 - (H)
 ROB4: DIV R1 0.0625
-ROB5: DIV R1
-ROB6:  - (T)
 
 Common Data Bus
 ['ROB3', 0]
@@ -407,30 +385,28 @@ MUL R2, R0, 2
 
 Registers
 R0: 0 
-R1: 0 ROB5
-R2: 0 ROB6
+R1: 0 ROB0
+R2: 0 ROB1
 R3: 0 
 
 Reservation Stations
 RS0:
-RS1: SUB 0 2 ROB6
+RS1: SUB 0 2 ROB1
 RS2:
 RS3:
-RS4: DIV 1 16 ROB5
+RS4: DIV 1 16 ROB0
 RS5:
 RS6:
 
 Reorder Buffer
-ROB0:  - (T)
-ROB1: 
-ROB2: 
+ROB0: DIV R1
+ROB1: SUB R2
+ROB2:  - (T)
 ROB3: 
 ROB4: DIV R1 0.0625 - (H)
-ROB5: DIV R1
-ROB6: SUB R2
 
 Common Data Bus
-['ROB6', -2]
+['ROB1', -2]
 ------------------------
 CYCLE 12
 
@@ -443,30 +419,28 @@ MUL R1, R0, R0
 
 Registers
 R0: 0 
-R1: 0.0625 ROB5
-R2: 0 ROB6
-R3: 0 ROB0
+R1: 0.0625 ROB0
+R2: 0 ROB1
+R3: 0 ROB2
 
 Reservation Stations
-RS0: ADD 0 1 ROB0
+RS0: ADD 0 1 ROB2
 RS1:
 RS2:
 RS3:
-RS4: DIV 1 16 ROB5
+RS4: DIV 1 16 ROB0
 RS5:
 RS6:
 
 Reorder Buffer
-ROB0: ADD R3
-ROB1:  - (T)
-ROB2: 
-ROB3: 
+ROB0: DIV R1 - (H)
+ROB1: SUB R2 -2
+ROB2: ADD R3
+ROB3:  - (T)
 ROB4: 
-ROB5: DIV R1 - (H)
-ROB6: SUB R2 -2
 
 Common Data Bus
-['ROB0', 1]
+['ROB2', 1]
 ------------------------
 CYCLE 13
 
@@ -479,30 +453,28 @@ MUL R1, R0, R0
 
 Registers
 R0: 0 
-R1: 0.0625 ROB5
-R2: 0 ROB6
-R3: 0 ROB0
+R1: 0.0625 ROB0
+R2: 0 ROB1
+R3: 0 ROB2
 
 Reservation Stations
 RS0:
 RS1:
 RS2:
 RS3:
-RS4: DIV 1 16 ROB5
+RS4: DIV 1 16 ROB0
 RS5:
 RS6:
 
 Reorder Buffer
-ROB0: ADD R3 1
-ROB1:  - (T)
-ROB2: 
-ROB3: 
+ROB0: DIV R1 - (H)
+ROB1: SUB R2 -2
+ROB2: ADD R3 1
+ROB3:  - (T)
 ROB4: 
-ROB5: DIV R1 - (H)
-ROB6: SUB R2 -2
 
 Common Data Bus
-['ROB5', 0.0625]
+['ROB0', 0.0625]
 ------------------------
 CYCLE 14
 
@@ -516,8 +488,8 @@ MUL R1, R0, R0
 Registers
 R0: 0 
 R1: 0.0625 
-R2: 0 ROB6
-R3: 0 ROB0
+R2: 0 ROB1
+R3: 0 ROB2
 
 Reservation Stations
 RS0:
@@ -529,13 +501,11 @@ RS5:
 RS6:
 
 Reorder Buffer
-ROB0: ADD R3 1
-ROB1:  - (T)
-ROB2: 
-ROB3: 
+ROB0: 
+ROB1: SUB R2 -2 - (H)
+ROB2: ADD R3 1
+ROB3:  - (T)
 ROB4: 
-ROB5: 
-ROB6: SUB R2 -2 - (H)
 
 Common Data Bus
 
@@ -552,26 +522,24 @@ SUB R3, R1, R2
 Registers
 R0: 0 
 R1: 0.0625 
-R2: -2 ROB1
-R3: 0 ROB1
+R2: -2 ROB3
+R3: 0 ROB3
 
 Reservation Stations
 RS0:
 RS1:
 RS2:
 RS3:
-RS4: DIV 1 -2 ROB1
+RS4: DIV 1 -2 ROB3
 RS5:
 RS6:
 
 Reorder Buffer
-ROB0: ADD R3 1 - (H)
-ROB1: DIV R2
-ROB2:  - (T)
-ROB3: 
-ROB4: 
-ROB5: 
-ROB6: 
+ROB0: 
+ROB1: 
+ROB2: ADD R3 1 - (H)
+ROB3: DIV R2
+ROB4:  - (T)
 
 Common Data Bus
 
@@ -586,28 +554,26 @@ SUB R3, R1, R2
 DIV R1, 1, 16
 
 Registers
-R0: 0 ROB2
+R0: 0 ROB4
 R1: 0.0625 
-R2: -2 ROB1
-R3: 1 ROB1
+R2: -2 ROB3
+R3: 1 ROB3
 
 Reservation Stations
-RS0: SUB 0 ROB1 ROB2
+RS0: SUB 0 ROB3 ROB4
 RS1:
 RS2:
 RS3:
-RS4: DIV 1 -2 ROB1
+RS4: DIV 1 -2 ROB3
 RS5:
 RS6:
 
 Reorder Buffer
-ROB0: 
-ROB1: DIV R2 - (H)
-ROB2: SUB R0
-ROB3:  - (T)
-ROB4: 
-ROB5: 
-ROB6: 
+ROB0:  - (T)
+ROB1: 
+ROB2: 
+ROB3: DIV R2 - (H)
+ROB4: SUB R0
 
 Common Data Bus
 
@@ -622,31 +588,29 @@ DIV R1, 1, 16
 SUB R2, R2, 2
 
 Registers
-R0: 0 ROB2
+R0: 0 ROB4
 R1: 0.0625 
-R2: -2 ROB1
-R3: 1 ROB1
+R2: -2 ROB3
+R3: 1 ROB3
 
 Reservation Stations
-RS0: SUB 0 ROB1 ROB2
+RS0: SUB 0 ROB3 ROB4
 RS1:
 RS2:
 RS3:
-RS4: DIV 1 -2 ROB1
-RS5: BEQZ 0.0625 4 ROB3
+RS4: DIV 1 -2 ROB3
+RS5: BEQZ 0.0625 4 ROB0
 RS6:
 
 Reorder Buffer
-ROB0: 
-ROB1: DIV R2 - (H)
-ROB2: SUB R0
-ROB3: BEQZ R1
-ROB4:  - (T)
-ROB5: 
-ROB6: 
+ROB0: BEQZ R1
+ROB1:  - (T)
+ROB2: 
+ROB3: DIV R2 - (H)
+ROB4: SUB R0
 
 Common Data Bus
-['ROB3', 0]
+['ROB0', 0]
 ------------------------
 CYCLE 18
 
@@ -658,28 +622,26 @@ SUB R2, R2, 2
 ADD R3, R3, 1
 
 Registers
-R0: 0 ROB2
+R0: 0 ROB4
 R1: 0.0625 
-R2: -2 ROB4
-R3: 1 ROB1
+R2: -2 ROB1
+R3: 1 ROB3
 
 Reservation Stations
-RS0: SUB 0 ROB1 ROB2
+RS0: SUB 0 ROB3 ROB4
 RS1:
-RS2: MUL ROB2 2 ROB4
+RS2: MUL ROB4 2 ROB1
 RS3:
-RS4: DIV 1 -2 ROB1
+RS4: DIV 1 -2 ROB3
 RS5:
 RS6:
 
 Reorder Buffer
-ROB0: 
-ROB1: DIV R2 - (H)
-ROB2: SUB R0
-ROB3: BEQZ R1 0
-ROB4: MUL R2
-ROB5:  - (T)
-ROB6: 
+ROB0: BEQZ R1 0
+ROB1: MUL R2
+ROB2:  - (T)
+ROB3: DIV R2 - (H)
+ROB4: SUB R0
 
 ------------------------
 CYCLE 19
@@ -687,44 +649,42 @@ CYCLE 19
 Instruction Window
 
 Registers
-R0: 0 ROB2
+R0: 0 ROB4
 R1: 0.0625 
-R2: -2 ROB1
-R3: 1 ROB1
+R2: -2 ROB3
+R3: 1 ROB3
 
 Reservation Stations
-RS0: SUB 0 ROB1 ROB2
+RS0: SUB 0 ROB3 ROB4
 RS1:
 RS2:
 RS3:
-RS4: DIV 1 -2 ROB1
+RS4: DIV 1 -2 ROB3
 RS5:
 RS6:
 
 Reorder Buffer
-ROB0: 
-ROB1: DIV R2 - (H)
-ROB2: SUB R0
-ROB3: BEQZ R1 0
-ROB4:  - (T)
-ROB5: 
-ROB6: 
+ROB0: BEQZ R1 0
+ROB1:  - (T)
+ROB2: 
+ROB3: DIV R2 - (H)
+ROB4: SUB R0
 
 Common Data Bus
-['ROB1', -0.5]
+['ROB3', -0.5]
 ------------------------
 CYCLE 20
 
 Instruction Window
 
 Registers
-R0: 0 ROB2
+R0: 0 ROB4
 R1: 0.0625 
 R2: -0.5 
-R3: 1 ROB1
+R3: 1 ROB3
 
 Reservation Stations
-RS0: SUB 0 -0.5 ROB2
+RS0: SUB 0 -0.5 ROB4
 RS1:
 RS2:
 RS3:
@@ -733,13 +693,11 @@ RS5:
 RS6:
 
 Reorder Buffer
-ROB0: 
-ROB1: 
-ROB2: SUB R0 - (H)
-ROB3: BEQZ R1 0
-ROB4:  - (T)
-ROB5: 
-ROB6: 
+ROB0: BEQZ R1 0
+ROB1:  - (T)
+ROB2: 
+ROB3: 
+ROB4: SUB R0 - (H)
 
 Common Data Bus
 
@@ -749,13 +707,13 @@ CYCLE 21
 Instruction Window
 
 Registers
-R0: 0 ROB2
+R0: 0 ROB4
 R1: 0.0625 
 R2: -0.5 
-R3: 1 ROB1
+R3: 1 ROB3
 
 Reservation Stations
-RS0: SUB 0 -0.5 ROB2
+RS0: SUB 0 -0.5 ROB4
 RS1:
 RS2:
 RS3:
@@ -764,16 +722,14 @@ RS5:
 RS6:
 
 Reorder Buffer
-ROB0: 
-ROB1: 
-ROB2: SUB R0 - (H)
-ROB3: BEQZ R1 0
-ROB4:  - (T)
-ROB5: 
-ROB6: 
+ROB0: BEQZ R1 0
+ROB1:  - (T)
+ROB2: 
+ROB3: 
+ROB4: SUB R0 - (H)
 
 Common Data Bus
-['ROB2', 0.5]
+['ROB4', 0.5]
 ------------------------
 CYCLE 22
 
@@ -783,7 +739,7 @@ Registers
 R0: 0.5 
 R1: 0.0625 
 R2: -0.5 
-R3: 1 ROB1
+R3: 1 ROB3
 
 Reservation Stations
 RS0:
@@ -795,13 +751,11 @@ RS5:
 RS6:
 
 Reorder Buffer
-ROB0: 
-ROB1: 
+ROB0: BEQZ R1 0 - (H)
+ROB1:  - (T)
 ROB2: 
-ROB3: BEQZ R1 0 - (H)
-ROB4:  - (T)
-ROB5: 
-ROB6: 
+ROB3: 
+ROB4: 
 
 Common Data Bus
 
@@ -814,7 +768,7 @@ Registers
 R0: 0.5 
 R1: 0.0625 
 R2: -0.5 
-R3: 1 ROB1
+R3: 1 ROB3
 
 Reservation Stations
 RS0:
@@ -827,10 +781,8 @@ RS6:
 
 Reorder Buffer
 ROB0: 
-ROB1: 
+ROB1:  - (H) - (T)
 ROB2: 
 ROB3: 
-ROB4:  - (H) - (T)
-ROB5: 
-ROB6: 
+ROB4: 
 Program has finished

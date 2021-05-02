@@ -23,34 +23,34 @@ class RegisterFile:
 
 class ReservationStation:
     def __init__(self):
-        self.list = []
+        self.ob_list = []
         for unit in Config.functional_units:
-            self.list.append(RSEntry(unit["id"],unit["instructions"],unit["cycles"]))
+            self.ob_list.append(RSEntry(unit["id"],unit["instructions"],unit["cycles"]))
 
     def is_available(self, op):
-        for rs in self.list:
+        for rs in self.ob_list:
             if not rs.busy and op in rs.unit_names:
                 return True
 
     def get_rs(self, op):
-        for rs in self.list:
+        for rs in self.ob_list:
             if not rs.busy and op in rs.unit_names:
                 return rs
 
     def __str__(self):
         file = ''
-        for rs in self.list:
+        for rs in self.ob_list:
             file += str(rs) + '\n'
         return file
 
     def execute(self, CDB):
-        for rs in self.list:
+        for rs in self.ob_list:
             value = rs.execute()
             if value is not None:
                 CDB.append(value)
 
     def update_with_rob(self, rob_id, value):
-        for rs in self.list:
+        for rs in self.ob_list:
             if rs.qj == rob_id:
                 rs.vj = value
                 rs.qj = ''
@@ -59,7 +59,7 @@ class ReservationStation:
                 rs.qk = ''
 
     def flush(self, inst_id):
-        for rs in self.list:
+        for rs in self.ob_list:
             if rs.busy and rs.inst_id == inst_id:
                 rs.busy = False
                 rs.qj = ''
@@ -105,17 +105,17 @@ class ReOrderBuffer:
     def __init__(self):
         self.head = 0
         self.tail = 0
-        self.list = []
+        self.ob_list = []
         self.size = Config.rob_size
         for i in range(self.size):
-            self.list.append(ROBEntry('ROB' + str(i)))
+            self.ob_list.append(ROBEntry('ROB' + str(i)))
 
     def is_full(self):
-        return self.head == self.tail and not self.list[self.head].ready
+        return self.head == self.tail and not self.ob_list[self.head].ready
 
     def __str__(self):
         file = ''
-        for i, rob in enumerate(self.list):
+        for i, rob in enumerate(self.ob_list):
             if i == self.head and i == self.tail:
                 file += str(rob) + ' - (H) - (T)\n'
             elif i == self.head:
@@ -130,45 +130,45 @@ class ReOrderBuffer:
         if self.is_full():
             raise IndexError("ROB is full, smthg is wrong.")
         else:
-            self.list[self.tail].update(inst.op, inst_id, inst.d, True, False)
+            self.ob_list[self.tail].update(inst.op, inst_id, inst.d, True, False)
             tmp = self.tail
             self.tail = (self.tail + 1) % self.size
 
-            return self.list[tmp].name
+            return self.ob_list[tmp].name
 
     def getby_reg(self, reg_name):
-        for rob in self.list:
+        for rob in self.ob_list:
             if rob.busy and rob.dest == reg_name:
                 return rob
         return None
 
     def getby_rob_id(self, rob_id):
-        for rob in self.list:
+        for rob in self.ob_list:
             if rob.name == rob_id:
                 return rob
 
     def get_head(self):
-        return self.list[self.head]
+        return self.ob_list[self.head]
 
     def update_head(self):
         self.head = (self.head + 1) % self.size
 
     def flush(self):
-        for i, rob in enumerate(self.list):
+        for i, rob in enumerate(self.ob_list):
             if rob.op.startswith('B') and rob.busy and rob.ready and rob.value == 0:
                 rob_list = []
                 rob.busy = True
                 i = (i + 1) % self.size
                 while i != self.head:
-                    if self.list[i].busy:
-                        rob_list.append(self.list[i])
-                        self.list[i].busy = False
+                    if self.ob_list[i].busy:
+                        rob_list.append(self.ob_list[i])
+                        self.ob_list[i].busy = False
                         self.tail = (self.tail - 1) % self.size
                     i = (i + 1) % self.size
                 return rob_list
 
     def is_empty(self):
-        for rob in self.list:
+        for rob in self.ob_list:
             if rob.busy is True:
                 return False
         return True

@@ -27,8 +27,8 @@ class ROBEntry:
 
 
 class RSEntry:
-    def __init__(self, id, insts, cycle):
-        self.id = id
+    def __init__(self, rs_id, insts, cycle):
+        self.rs_id = rs_id
         self.inst_id = -1
         self.op = ""
         self.busy = False
@@ -80,9 +80,9 @@ class RSEntry:
 
     def __str__(self):
         if not self.busy:
-            return 'RS' + str(self.id) + ':'
+            return 'RS' + str(self.rs_id) + ':'
         else:
-            line = 'RS' + str(self.id) + ': ' + self.op + ' '
+            line = 'RS' + str(self.rs_id) + ': ' + self.op + ' '
             if self.qj != '':
                 line += self.qj + ' '
             else:
@@ -93,6 +93,21 @@ class RSEntry:
                 line += str(self.vk) + ' '
             return line + self.dest
 
+    def get_rs_dict(self):
+        if not self.busy:
+            rs = {'id': self.rs_id,
+                  'op': '',
+                  'j': '',
+                  'k': '',
+                  'dest': ''}
+        else:
+            rs = dict()
+            rs['id'] = self.rs_id
+            rs['op'] = self.op
+            rs['j'] = self.qj if self.qj != '' else str(self.vj)
+            rs['k'] = self.qk if self.qk != '' else str(self.vk)
+            rs['dest'] = self.dest
+        return rs
 
 class Register:
     def __init__(self, name):
@@ -130,7 +145,7 @@ class Instruction:
     @staticmethod
     def is_operand_reg(operand):
         try:
-            value = int(operand)
+            _ = int(operand)
             return False
         except:
             return True
@@ -141,4 +156,3 @@ class Instruction:
             return self.op + ' ' + self.d + ', ' + self.s1
         else:
             return self.op + ' ' + self.d + ', ' + self.s1 + ', ' + self.s2
-
