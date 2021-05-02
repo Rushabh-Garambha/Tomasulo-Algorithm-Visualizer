@@ -44,7 +44,9 @@ class Architecture:
                 self.execute()
             results[-1]["cdb"] = self.print_CDB()
             if self.cycle > 1:
-                self.write_back()
+                wb_result = self.write_back()
+                if wb_result is not None:
+                    results.append(wb_result)
             if self.cycle > 2:
                 self.commit()
             self.update_clock()
@@ -66,8 +68,11 @@ class Architecture:
 
         inst_window = str(self.IQ)
         self.output.write(inst_window)
-        result['IQ'] = inst_window.split('\n')
-
+        inst_queue = inst_window.split('\n')
+        if len(inst_queue) > 1:
+            result['IQ'] = inst_queue[0:cfg.Config.inst_win_size]
+        else:
+            result['IQ'] = ['' for i in range(cfg.Config.inst_win_size)]
         self.output.write('\nRegisters\n')
         register_file = str(self.RF)
         self.output.write(register_file)
@@ -250,6 +255,7 @@ class Architecture:
         self.RS.execute(self.CDB)
 
     def write_back(self):
+        result = None
         if len(self.CDB) != 0:
             rob_id, value = self.CDB.pop(0)
 
@@ -258,10 +264,11 @@ class Architecture:
             rob.value = value
             if rob.op.startswith('B') and rob.value == 0:
                 self.cycle += 1
-                self.print_cycle()
+                result = self.print_cycle()
                 self.flush()
                 self.program_counter = self.last_branch_PC
             self.RS.update_with_rob(rob_id, value)
+        return result
 
     def commit(self):
         head_rob = self.ROB.get_head()
