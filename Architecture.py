@@ -98,6 +98,7 @@ class Architecture:
         if len(self.CDB) != 0:
             self.output.write(str(self.CDB[0]))
             return str(self.CDB[0])
+        return ''
 
     def issue(self):
         if self.IQ.empty():

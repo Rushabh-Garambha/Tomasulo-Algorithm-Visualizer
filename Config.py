@@ -77,3 +77,13 @@ instructions = [{"address": 0,
                  "dest": "R1",
                  "s1": "4",
                  "s2": None}]
+
+results = []
+
+def get_program(program):
+    line = ''
+    for inst in program:
+        line += "{:<2d}: {:<4s} {:<2s} {:<2s} {:<2s}\n".format(inst['address'], inst['op'], inst['dest'], inst['s1'], '' if inst['s2'] is None else inst['s2'])
+    return line
+
+#print(get_program(instructions))
